@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
 import 'package:letswatch/models/movie-api.dart';
+import 'package:letswatch/models/movies-details.dart';
 
 class ApiService {
 
@@ -18,10 +19,10 @@ class ApiService {
     }
   }
 
-  Future<MoviesApi> apiMovieDetailsWithOptions(String options) async {
+  Future<MovieDetails> apiMovieDetailsWithOptions(String options) async {
     final Response response = await get('$_apiBaseUrl$_movieDetails$options');
     if (response.statusCode == 200) {
-      return MoviesApi.fromJson(json.decode(response.body));
+      return MovieDetails.fromJson(json.decode(response.body));
     } else {
       throw Exception('Failed to load Api');
     }

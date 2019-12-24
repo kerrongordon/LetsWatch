@@ -3,11 +3,19 @@ import 'package:letswatch/components/movie-image.dart';
 import 'package:letswatch/components/movie-title.dart';
 import 'package:letswatch/components/rating-star.dart';
 import 'package:letswatch/models/movie-api.dart';
+import 'package:letswatch/models/movies-details.dart';
 import 'package:letswatch/screens/movie-details.dart';
+import 'package:letswatch/services/movies.dart';
 
 class MoveListItem extends StatelessWidget {
   final Movies movie;
   MoveListItem({this.movie});
+
+  Future<Movie> _loadMovieData(id) async {
+    final String options = '?movie_id=$id';
+    Movie movie = await MoviesService.movieDetailsData(options);
+    return movie;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +25,10 @@ class MoveListItem extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: GestureDetector(
-            onTap: () {
+            onTap: () async {
+              Movie moviedetail = await _loadMovieData(movie.id).then((item) => item);
               Navigator.of(context)
-                  .pushNamed(MovieDetail.routeName, arguments: movie);
+                  .pushNamed(MovieDetail.routeName, arguments: moviedetail);
             },
             child: Column(
               children: <Widget>[
