@@ -11,11 +11,11 @@ class MoveListItem extends StatelessWidget {
   final Movies movie;
   MoveListItem({this.movie});
 
-  Future<Movie> _loadMovieData(id) async {
-    final String options = '?movie_id=$id';
-    Movie movie = await MoviesService.movieDetailsData(options);
-    return movie;
-  }
+  // Future<Movie> _loadMovieData(id) async {
+  //   final String options = '?movie_id=$id';
+  //   Movie movie = await MoviesService.movieDetailsData(options);
+  //   return movie;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +26,9 @@ class MoveListItem extends StatelessWidget {
           padding: const EdgeInsets.all(10.0),
           child: GestureDetector(
             onTap: () async {
-              Movie moviedetail = await _loadMovieData(movie.id).then((item) => item);
+              // Movie moviedetail = await _loadMovieData(movie.id).then((item) => item);
               Navigator.of(context)
-                  .pushNamed(MovieDetail.routeName, arguments: moviedetail);
+                  .pushNamed(MovieDetail.routeName, arguments: movie);
             },
             child: Column(
               children: <Widget>[

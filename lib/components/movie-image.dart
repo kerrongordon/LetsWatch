@@ -12,7 +12,7 @@ class MovieImage extends StatelessWidget {
       return Hero(
         tag: id,
         child: Card(
-          elevation: 5.0,
+          elevation: 3.0,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(5),
             child: FadeInImage.memoryNetwork(

@@ -15,11 +15,30 @@ class MovieDetail extends StatefulWidget {
 }
 
 class _MovieDetailState extends State<MovieDetail> {
+  Movie mDetailItem;
+
+  @override
+  void initState() {
+    super.initState();
+    // this.mDetailItem = {} as Movie;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final data = ModalRoute.of(context).settings.arguments as Movie;
+    final data = ModalRoute.of(context).settings.arguments as Movies;
 
-    print(data);
+    WidgetsBinding.instance.addPersistentFrameCallback((_) {
+      if (mDetailItem == null) {
+        getMoreDetailsAboutThisMovie(data.id)
+            .then((item) => setState(() => this.mDetailItem = item));
+      }
+    });
+
+    // getMoreDetailsAboutThisMovie(data.id).then((item) => setState(() => this.mDetailItem = item));
+
+    if (mDetailItem != null) {
+      print('test ${mDetailItem.id}');
+    }
 
     return Scaffold(
       appBar: AppBar(),
@@ -178,4 +197,10 @@ class _MovieDetailState extends State<MovieDetail> {
       // ),
     );
   }
+}
+
+Future<Movie> getMoreDetailsAboutThisMovie(int id) async {
+  final String options = '?movie_id=$id';
+  Movie movie = await MoviesService.movieDetailsData(options);
+  return movie;
 }

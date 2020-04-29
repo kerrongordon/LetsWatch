@@ -6,12 +6,14 @@ import 'package:letswatch/models/movies-details.dart';
 
 class ApiService {
 
-  final String _apiBaseUrl = DotEnv().env['API_URL'];
+  // final String _apiBaseUrl = DotEnv().env['API_URL'];
+  final String _apiBaseUrl = 'https://yts.mx/api/v2/';
   final String _listMovies = 'list_movies.json';
   final String _movieDetails = 'movie_details.json';
+  final Map<String, String> headers = {"Content-type": "application/json"};
 
   Future<MoviesApi> apiMovieListWithOptions(String options) async {
-    final Response response = await get('$_apiBaseUrl$_listMovies$options');
+    final Response response = await get('$_apiBaseUrl$_listMovies$options', headers: headers);
     if (response.statusCode == 200) {
       return MoviesApi.fromJson(json.decode(response.body));
     } else {
@@ -20,7 +22,7 @@ class ApiService {
   }
 
   Future<MovieDetails> apiMovieDetailsWithOptions(String options) async {
-    final Response response = await get('$_apiBaseUrl$_movieDetails$options');
+    final Response response = await get('$_apiBaseUrl$_movieDetails$options', headers: headers);
     if (response.statusCode == 200) {
       return MovieDetails.fromJson(json.decode(response.body));
     } else {

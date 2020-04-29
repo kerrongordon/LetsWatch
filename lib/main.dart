@@ -6,12 +6,12 @@ import 'package:letswatch/screens/movies/featured-movies-all.dart';
 import 'package:letswatch/screens/movies/latest-movies-all.dart';
 import 'package:letswatch/screens/movies/popular-movies-all.dart';
 
-// void main() => runApp(Home());
+void main() => runApp(Home());
 
-Future main() async {
-  await DotEnv().load('.env');
-  runApp(Home());
-}
+// Future main() async {
+//   await DotEnv().load('.env');
+//   runApp(Home());
+// }
 
 class Home extends StatelessWidget {
   const Home({Key key}) : super(key: key);
